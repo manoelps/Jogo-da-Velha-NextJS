@@ -35,7 +35,7 @@ const Home = () => {
                     'cursor-not-allowed': move.owner !== '' || win?.win
                   },
                   {
-                    'bg-orange-600 text-white':
+                    'bg-orange-600/95 text-white':
                       index === win?.positions[0] ||
                       index === win?.positions[1] ||
                       index === win?.positions[2]
