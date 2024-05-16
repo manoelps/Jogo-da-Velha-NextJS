@@ -30,7 +30,7 @@ const Home = () => {
                 }}
                 key={move.id}
                 className={classNames(
-                  'flex flex-col items-center justify-center w-14 h-14 bg-white text-[#56BAEC] font-bold text-2xl hover:scale-95 rounded',
+                  'flex flex-col items-center justify-center w-14 h-14 font-bold text-2xl hover:scale-95 rounded',
                   {
                     'cursor-not-allowed': move.owner !== '' || win?.win
                   },
@@ -39,6 +39,12 @@ const Home = () => {
                       index === win?.positions[0] ||
                       index === win?.positions[1] ||
                       index === win?.positions[2]
+                  },
+                  {
+                    'bg-white text-[#56BAEC]':
+                      index !== win?.positions[0] ||
+                      index !== win?.positions[1] ||
+                      index !== win?.positions[2]
                   }
                 )}
               >
