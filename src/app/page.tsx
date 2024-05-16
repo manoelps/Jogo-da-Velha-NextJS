@@ -5,15 +5,15 @@ import classNames from 'classnames';
 import { FaPerson, FaRobot } from 'react-icons/fa6';
 
 const Home = () => {
-  const { player, moves, handlePlay, win, resetGame, scoreboard } = useGame();
-
-  const isWinningPosition = (index: number): boolean => {
-    return (
-      index === win?.positions[0] ||
-      index === win?.positions[1] ||
-      index === win?.positions[2]
-    );
-  };
+  const {
+    player,
+    moves,
+    handlePlay,
+    win,
+    resetGame,
+    scoreboard,
+    isWinningPosition
+  } = useGame();
 
   return (
     <main className="min-h-screen flex items-center justify-center">

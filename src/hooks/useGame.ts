@@ -164,13 +164,22 @@ const useGame = () => {
     }
   }, [win]);
 
+  const isWinningPosition = (index: number): boolean => {
+    return (
+      index === win?.positions[0] ||
+      index === win?.positions[1] ||
+      index === win?.positions[2]
+    );
+  };
+
   return {
     player,
     moves,
     handlePlay,
     win,
     resetGame,
-    scoreboard
+    scoreboard,
+    isWinningPosition
   };
 };
 
