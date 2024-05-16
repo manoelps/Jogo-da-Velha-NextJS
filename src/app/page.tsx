@@ -22,6 +22,38 @@ const Home = () => {
 
         <div>
           <div className="grid grid-cols-3 gap-1 p-5 rounded-md">
+            {moves.map((move, index) => {
+              const isDisabled = move.owner !== '' || win?.win;
+              const isWinningPosition =
+                index === win?.positions[0] ||
+                index === win?.positions[1] ||
+                index === win?.positions[2];
+
+              return (
+                <button
+                  disabled={isDisabled}
+                  onClick={() => handlePlay(move)}
+                  key={move.id}
+                  className={classNames(
+                    'flex flex-col items-center justify-center w-14 h-14 font-bold text-2xl hover:scale-95 rounded',
+                    {
+                      'cursor-not-allowed': isDisabled,
+                      'bg-white text-[#56BAEC]': !isWinningPosition && win?.win,
+                      'bg-orange-600 text-white': isWinningPosition
+                    }
+                  )}
+                >
+                  {(!isWinningPosition || !win?.win) &&
+                    (move.owner === 'O' ? (
+                      <FaPerson className="" size={26} />
+                    ) : (
+                      move.owner === 'X' && <FaRobot className="" size={26} />
+                    ))}
+                </button>
+              );
+            })}
+          </div>
+          {/* <div className="grid grid-cols-3 gap-1 p-5 rounded-md">
             {moves.map((move, index) => (
               <button
                 disabled={move.owner !== '' || win?.win}
@@ -60,7 +92,7 @@ const Home = () => {
                 )}
               </button>
             ))}
-          </div>
+          </div> */}
 
           <div className="w-full flex items-center justify-center py-4 gap-3">
             <button
