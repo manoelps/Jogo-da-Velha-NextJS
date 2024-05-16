@@ -57,46 +57,6 @@ const Home = () => {
               );
             })}
           </div>
-          {/* <div className="grid grid-cols-3 gap-1 p-5 rounded-md">
-            {moves.map((move, index) => (
-              <button
-                disabled={move.owner !== '' || win?.win}
-                onClick={() => {
-                  handlePlay(move);
-                }}
-                key={move.id}
-                className={classNames(
-                  'flex flex-col items-center justify-center w-14 h-14 font-bold text-2xl hover:scale-95 rounded',
-                  {
-                    'cursor-not-allowed': move.owner !== '' || win?.win
-                  },
-                  {
-                    'bg-white text-[#56BAEC]':
-                      index !== win?.positions[0] ||
-                      index !== win?.positions[1] ||
-                      index !== win?.positions[2]
-                  },
-                  {
-                    'bg-orange-600 text-white':
-                      index === win?.positions[0] ||
-                      index === win?.positions[1] ||
-                      index === win?.positions[2]
-                  }
-                )}
-              >
-                {index !== win?.positions[0] &&
-                index !== win?.positions[1] &&
-                index !== win?.positions[2] &&
-                win?.win ? (
-                  ''
-                ) : move.owner === 'O' ? (
-                  <FaPerson className="" size={26} />
-                ) : (
-                  move.owner === 'X' && <FaRobot className="" size={26} />
-                )}
-              </button>
-            ))}
-          </div> */}
 
           <div className="w-full flex items-center justify-center py-4 gap-3">
             <button
