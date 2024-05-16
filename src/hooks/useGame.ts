@@ -1,3 +1,4 @@
+import { getRadomNumber } from '@/helpers/helper';
 import { board } from '@/mocks/board';
 import { PlacarProps, PlayProps, WinProps } from '@/types/types';
 import { useEffect, useState } from 'react';
@@ -19,10 +20,6 @@ const useGame = () => {
   const position_6 = [2, 5, 8];
   const position_7 = [0, 4, 8];
   const position_8 = [2, 4, 6];
-
-  const getRadomNumber = (max: number) => {
-    return Math.floor(Math.random() * max);
-  };
 
   const iaPlayer = (
     checa1: WinProps,
