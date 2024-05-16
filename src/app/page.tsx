@@ -38,21 +38,16 @@ const Home = () => {
                     'flex flex-col items-center justify-center bg-white text-[#56BAEC] w-14 h-14 font-bold text-2xl hover:scale-95 rounded',
                     {
                       'cursor-not-allowed': isDisabled,
-                      ' ': !isWinningPosition && win?.win,
                       'bg-orange-600 text-white': isWinningPosition
                     }
                   )}
                 >
-                  {index !== win?.positions[0] &&
-                  index !== win?.positions[1] &&
-                  index !== win?.positions[2] &&
-                  win?.win ? (
-                    ''
-                  ) : move.owner === 'O' ? (
-                    <FaPerson className="" size={26} />
-                  ) : (
-                    move.owner === 'X' && <FaRobot className="" size={26} />
-                  )}
+                  {(isWinningPosition || !win?.win) &&
+                    (move.owner === 'O' ? (
+                      <FaPerson className="" size={26} />
+                    ) : (
+                      move.owner === 'X' && <FaRobot className="" size={26} />
+                    ))}
                 </button>
               );
             })}
