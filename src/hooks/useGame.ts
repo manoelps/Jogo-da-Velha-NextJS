@@ -21,39 +21,19 @@ const useGame = () => {
   const position_7 = [0, 4, 8];
   const position_8 = [2, 4, 6];
 
-  const iaPlayer = (
-    checa1: WinProps,
-    checa2: WinProps,
-    checa3: WinProps,
-    checa4: WinProps,
-    checa5: WinProps,
-    checa6: WinProps,
-    checa7: WinProps,
-    checa8: WinProps
-  ) => {
-    const alreadyWon =
-      !checa1.win &&
-      !checa2.win &&
-      !checa3.win &&
-      !checa4.win &&
-      !checa5.win &&
-      !checa6.win &&
-      !checa7.win &&
-      !checa8.win;
+  const iaPlayer = (...checks: WinProps[]) => {
+    const alreadyWon = checks.every(check => !check.win);
 
     if (player && alreadyWon) {
       setTimeout(() => {
-        let availableMoves: number[] = [];
+        const availableMoves = moves
+          .filter(move => move.owner === '')
+          .map(move => move.id);
 
-        moves.map(value => {
-          if (value.owner === '') {
-            availableMoves.push(value.id);
-          }
-        });
-
-        const play = getRadomNumber(availableMoves.length);
-
-        handlePlay({ id: availableMoves[play], owner: '' });
+        if (availableMoves.length > 0) {
+          const playIndex = getRadomNumber(availableMoves.length);
+          handlePlay({ id: availableMoves[playIndex], owner: '' });
+        }
       }, 500);
     }
   };
@@ -71,63 +51,43 @@ const useGame = () => {
   };
 
   const checkWinningPosition = (positions: number[]) => {
-    let winner = '';
-    let play: string[] = [];
-
-    play.push(moves[positions[0]].owner);
-    play.push(moves[positions[1]].owner);
-    play.push(moves[positions[2]].owner);
-
-    const win = play.every((value, index, array) => {
-      winner = array[0];
-      return value !== '' && value === array[0];
-    });
+    const play = positions.map(pos => moves[pos].owner);
+    const winner = play[0];
+    const win = play.every(value => value !== '' && value === winner);
 
     return {
       win,
-      winner,
+      winner: win ? winner : '',
       positions
     };
   };
 
   const checkScoreboard = () => {
-    const check_1 = checkWinningPosition(position_1);
-    const check_2 = checkWinningPosition(position_2);
-    const check_3 = checkWinningPosition(position_3);
-    const check_4 = checkWinningPosition(position_4);
-    const check_5 = checkWinningPosition(position_5);
-    const check_6 = checkWinningPosition(position_6);
-    const check_7 = checkWinningPosition(position_7);
-    const check_8 = checkWinningPosition(position_8);
+    const positions = [
+      position_1,
+      position_2,
+      position_3,
+      position_4,
+      position_5,
+      position_6,
+      position_7,
+      position_8
+    ];
+    let winCheck = null;
 
-    if (check_1.win) {
-      setWin(check_1);
-    } else if (check_2.win) {
-      setWin(check_2);
-    } else if (check_3.win) {
-      setWin(check_3);
-    } else if (check_4.win) {
-      setWin(check_4);
-    } else if (check_5.win) {
-      setWin(check_5);
-    } else if (check_6.win) {
-      setWin(check_6);
-    } else if (check_7.win) {
-      setWin(check_7);
-    } else if (check_8.win) {
-      setWin(check_8);
+    for (let i = 0; i < positions.length; i++) {
+      const check = checkWinningPosition(positions[i]);
+      if (check.win) {
+        winCheck = check;
+        break;
+      }
     }
 
-    iaPlayer(
-      check_1,
-      check_2,
-      check_3,
-      check_4,
-      check_5,
-      check_6,
-      check_7,
-      check_8
-    );
+    if (winCheck) {
+      setWin(winCheck);
+    }
+
+    iaPlayer(...positions.map(checkWinningPosition));
   };
 
   const resetGame = () => {
